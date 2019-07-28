@@ -1,0 +1,20 @@
+% Accept a connection from any machine on port 30000.
+clear
+clc
+fprintf('Creating Server...\n');
+t = tcpip('192.168.56.2', 502, 'NetworkRole', 'server');
+fprintf('Server Created...\n')
+
+%Open a connection. This will not return until a connection is received.
+fprintf('Waiting for a client to connect...\n');
+fopen(t);
+fprintf('Client Connected...\n')
+%Read the waveform and confirm it visually by plotting it.
+fprintf('Receiving Data...\n')
+data = get(t,'BytesAvailable')
+%data=20
+data_Final = fread(t, data)
+fwrite(tcpip_pipe, message,'uint8');
+% plot(data_Final);
+
+
